@@ -1,4 +1,4 @@
-const secretMessage = "hunch".toUpperCase();
+const secretMessage = "happy birthday himani".toUpperCase();
 const NUMBER_OF_GUESSES = 6;
 
 const secretWord = secretMessage.replaceAll(" ", ""); // the secret message without spaces
