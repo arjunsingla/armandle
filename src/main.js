@@ -180,7 +180,7 @@ function handleEnter() {
         return;
     }
 
-    let colors = getColors(guessedWord);
+    let colors = getColors(guessedWords);
     guessAnnimation(colors);
     changeKeyboardColors(guessedWord);
 
@@ -225,24 +225,38 @@ function getGuessedWords() {
 
 // gets an array of strings, where each string represents the 
 // color of the tile at that index after a guess. Takes in
-// the guesedWord (without spaces in the case of a secret message with multiple words)
-function getColors(guessedWord) {
-    let colors = new Array(NUMBER_OF_TILES);
-    let wordMap = createWordMap();
+// the guesedWords (has multiple words in the case of a secret message)
+function getColors(guessedWords) {
+    let colors = new Array();
+    let secretWords = secretMessage.split(" ");
 
-    for (let i = 0; i < NUMBER_OF_TILES; i++) {
+    for (let i = 0; i < guessedWords.length; i++) {
+        let colorsForWord = getColorsForWord(guessedWords[i], secretWords[i]);
+        colors.push(...colorsForWord);
+    }
+    return colors;
+}
+
+// returns an array of strings, where each string represents the color
+// of the tile representing the character at guessedWord's index after a guess.
+// Takes in a targetWord as the word to compare guessedWord to.
+function getColorsForWord(guessedWord, targetWord) {
+    let colors = new Array(targetWord.length);
+    let wordMap = createWordMap(targetWord);
+
+    for (let i = 0; i < targetWord.length; i++) {
         let g = guessedWord.charAt(i);
 
-        if (secretWord.charAt(i) === g) {
+        if (targetWord.charAt(i) === g) {
             colors[i] = "green";
             wordMap.set(g, wordMap.get(g) - 1);
         }
     }
 
-    for (let i = 0; i < NUMBER_OF_TILES; i++) {
+    for (let i = 0; i < targetWord.length; i++) {
         let g = guessedWord.charAt(i);
 
-        if (secretWord.charAt(i) !== g) {
+        if (targetWord.charAt(i) !== g) {
             if (wordMap.has(g) && wordMap.get(g) > 0) {
                 colors[i] = "yellow";
                 wordMap.set(g, wordMap.get(g) - 1);
@@ -254,12 +268,12 @@ function getColors(guessedWord) {
     return colors;
 }
 
-// creates a map of letter => count for each letter in the secret word
-function createWordMap() {
+// creates a map of letter => count for each letter in the given word
+function createWordMap(word) {
     let wordMap = new Map();
 
-    for (let i = 0; i < NUMBER_OF_TILES; i++) {
-        let c = secretWord.charAt(i);
+    for (let i = 0; i < word.length; i++) {
+        let c = word.charAt(i);
         if (!wordMap.has(c)) {
             wordMap.set(c, 0);
         }
