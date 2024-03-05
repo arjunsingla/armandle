@@ -76,7 +76,9 @@ function setUpKeyBoard() {
             element.innerText = keyboardLayout[i][j].toUpperCase();
 
             element.addEventListener("click", function(evt) {
-                document.dispatchEvent(new KeyboardEvent('keydown', {'key': element.id.split("-")[1]})); 
+                document.dispatchEvent(new KeyboardEvent('keydown', {
+                    'key': element.id.split("-")[1]
+                }));
             });
 
             if (keyboardLayout[i][j] === "Backspace") {
@@ -124,7 +126,7 @@ function correctAnnimation() {
             tile.classList.add("jump");
             tile.style.animationDelay = `${i * JUMP_ANNIMATION_DELAY}ms`;
         }
-    }.bind(this, currentRow),`${NUMBER_OF_TILES * FLIP_ANNIMATION_DELAY}`); // wait after flips are done before jumping!
+    }.bind(this, currentRow), `${NUMBER_OF_TILES * FLIP_ANNIMATION_DELAY}`); // wait after flips are done before jumping!
 }
 
 function changeKeyboardColors(guessedWord) {
@@ -239,7 +241,7 @@ function getColors(guessedWord) {
 
     for (let i = 0; i < NUMBER_OF_TILES; i++) {
         let g = guessedWord.charAt(i);
-  
+
         if (secretWord.charAt(i) !== g) {
             if (wordMap.has(g) && wordMap.get(g) > 0) {
                 colors[i] = "yellow";
