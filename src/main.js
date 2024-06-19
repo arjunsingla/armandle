@@ -1,4 +1,4 @@
-const secretMessage = "drink".toUpperCase();
+const secretMessage = "apple".toUpperCase();
 const NUMBER_OF_GUESSES = 6;
 
 const secretWord = secretMessage.replaceAll(" ", ""); // the secret message without spaces
