@@ -9,6 +9,8 @@ const dictionary = new Set([
   "himnij",
   "i",
   "a",
+  "lego",
+  "legos",
 
   // regular words. Source:
   // https://gist.githubusercontent.com/jesseditson/1e6b2b524814320515ccfe7e2f856eda/raw/17d61fa1e80e14b13c4525b09f84148772586b59/words.json
